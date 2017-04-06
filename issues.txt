@@ -1,0 +1,11 @@
+{
+    "error": {
+        "errors": [{
+            "domain": "global",
+            "reason": "forbidden",
+            "message": "No permission to access resource. Please contact your technical account manager."
+        }],
+        "code": 403,
+        "message": "No permission to access resource. Please contact your technical account manager."
+    }
+}

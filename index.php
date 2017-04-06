@@ -17,11 +17,8 @@ if ($client->isAccessTokenExpired()) {
     $client->refreshTokenWithAssertion();
 }
 
-print_r($client->getAccessToken());
+//print_r($client->getAccessToken());
 $_SESSION['service_token'] = $client->getAccessToken();
-
-$service = new Google_Service_AdExchangeBuyer($client);
-
 
 // Insert Creative to Google AdX pipeline to verification
 $creative_service = new Google_Service_AdExchangeBuyer_Creative($client);
@@ -36,7 +33,9 @@ $creative_status = $service->creatives->insert($creative_service);
 
 var_dump($creative_status);
 
-/*$result = $service->accounts->listAccounts();
+/*
+$service = new Google_Service_AdExchangeBuyer($client);
+$result = $service->accounts->listAccounts();
 print '<h2>Listing of user associated accounts</h2>';
 if ( ! isset($result['items']) || ! count($result['items']) ) {
     print '<p>No accounts found</p>';
