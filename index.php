@@ -10,7 +10,7 @@ if (isset($_SESSION['service_token'])) {
     $client->setAccessToken($_SESSION['service_token']);
 }
 
-$client->setAuthConfig($key_file_location = "Prodata AdX Testing-19888b24757e.json");
+$client->setAuthConfig($key_file_location = "auth_config.json");
 $client->addScope('https://www.googleapis.com/auth/adexchange.buyer');
 
 if ($client->isAccessTokenExpired()) {
@@ -20,18 +20,31 @@ if ($client->isAccessTokenExpired()) {
 //print_r($client->getAccessToken());
 $_SESSION['service_token'] = $client->getAccessToken();
 
+
+// list creatives
+$creative_listing_service = new Google_Service_AdExchangeBuyer_CreativesList($client);
+$list_creatives = $service->creatives->listCreatives();
+foreach ($list_creatives->getItems() as $item) {
+    echo '<pre>';
+    print_r($item->getServingRestrictions());
+    echo '</pre>';
+}
+exit;
+
 // Insert Creative to Google AdX pipeline to verification
 $creative_service = new Google_Service_AdExchangeBuyer_Creative($client);
-$creative_service->accountId = 1111;
-$creative_service->buyerCreativeId = 2222;
+$creative_service->accountId = 212286445;
+$creative_service->advertiserName = "ProData Media";
+$creative_service->buyerCreativeId = "ProData Test1 - AY";
 $creative_service->width = 720;
 $creative_service->height = 250;
 $creative_service->clickThroughUrl = [
-	'http://reporting.prodata.media/c2/2161/2515'
+	'www.example.com'
 ];
+$creative_service->HTMLSnippet = "<html><body><a href='http://www.example.com'>Hi there!</a></body></html>";
 $creative_status = $service->creatives->insert($creative_service);
 
-var_dump($creative_status);
+var_dump($creative_status->toSimpleObject());
 
 /*
 $service = new Google_Service_AdExchangeBuyer($client);
