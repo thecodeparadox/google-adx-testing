@@ -1,0 +1,9 @@
+{
+	"description": "Google AdX Testing",
+	"name": "Google AdX Testing",
+	"type": "project",
+	"license": "MIT",
+	"require": {
+		"google/apiclient": "^2.0"
+	}
+}
