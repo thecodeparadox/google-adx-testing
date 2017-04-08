@@ -1,6 +1,6 @@
 <?php
 
-require_once "Google_AdX/autoload.php";
+require_once "GoogleApiClient/autoload.php";
 
 class Google_adx {
 
