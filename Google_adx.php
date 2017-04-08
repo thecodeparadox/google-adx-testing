@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * CI library implementation of Google AdX API
+ *
+ * Using this library following actions can be implements:
+ *
+ * 1. Insert New Creative to Google AdX
+ * 2. Check Approval/Disapproval status of creative with details reason
+ * 3. Get Creatives listing ( w/ filtering and pagination )
+ * 4. Retreive An A/C account details
+ *
+ */
 require_once "GoogleApiClient/autoload.php";
 
 class Google_adx {
@@ -78,10 +88,11 @@ class Google_adx {
         $param_keys = array_keys($params);
         $missing_params = array_diff($required_keys, $param_keys);
         if ( !empty($missing_params) ) {
-            print("Required parameters missing:");
-            printf('<pre>');
-            print_r($missing_params);
-            printf('</pre>');
+            $err = 'Parameters: '. implode(',', $missing_params) .' are required';
+            return [
+                'status' => 'ERROR',
+                'error' => $err
+            ];
             exit;
         }
 
@@ -101,6 +112,7 @@ class Google_adx {
 
     /**
      * Get AdX Account Detail by Account ID
+     *
      * @param  integer $account_id
      * @return mixed
      */
